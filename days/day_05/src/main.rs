@@ -1,19 +1,15 @@
 use std::str::FromStr;
 
-use once_cell::sync::{Lazy, OnceCell};
+use once_cell::sync::Lazy;
 use regex::Regex;
+use utils::parse_lines;
 
 fn main() {
     let stacks = include_str!("./stacks.txt");
     let instructions = include_str!("./instructions.txt");
 
     let stacks = Stacks::from_str(stacks).unwrap();
-    let instructions = instructions
-        .split("\n")
-        .filter(|s| !s.is_empty())
-        .map(|s| Instruction::from_str(s))
-        .collect::<Result<Vec<_>, _>>()
-        .unwrap();
+    let instructions = parse_lines(instructions).unwrap();
 
     part1(stacks.clone(), &instructions);
     part2(stacks, &instructions);

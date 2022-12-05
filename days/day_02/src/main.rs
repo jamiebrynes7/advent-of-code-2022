@@ -6,14 +6,10 @@ fn main() {
 
 mod part2 {
     use std::str::FromStr;
+    use utils::parse_lines;
 
     pub fn result(input: &str) {
-        let games = input
-            .split("\n")
-            .filter(|s| !s.is_empty())
-            .map(Game::from_str)
-            .collect::<Result<Vec<_>, _>>()
-            .unwrap();
+        let games: Vec<Game> = parse_lines(input).unwrap();
 
         let points: u32 = games.iter().map(Game::points).sum();
         println!("Part 1 result: {points}");
@@ -107,14 +103,10 @@ mod part2 {
 mod part1 {
     use std::str::FromStr;
 
-    pub fn result(input: &str) {
-        let games = input
-            .split("\n")
-            .filter(|s| !s.is_empty())
-            .map(Game::from_str)
-            .collect::<Result<Vec<_>, _>>()
-            .unwrap();
+    use utils::parse_lines;
 
+    pub fn result(input: &str) {
+        let games = parse_lines(input).unwrap();
         let points: u32 = games.iter().map(Game::points).sum();
         println!("Part 1 result: {points}");
     }

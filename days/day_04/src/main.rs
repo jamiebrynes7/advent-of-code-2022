@@ -1,13 +1,9 @@
 use std::str::FromStr;
+use utils::parse_lines;
 
 fn main() {
     let input = include_str!("./data.txt");
-    let pairs = input
-        .split("\n")
-        .filter(|s| !s.is_empty())
-        .map(Pair::from_str)
-        .collect::<Result<Vec<_>, _>>()
-        .unwrap();
+    let pairs = parse_lines(input).unwrap();
 
     part1(&pairs);
     part2(&pairs);

@@ -1,12 +1,10 @@
-use std::collections::HashSet;
+use std::{collections::HashSet, str::FromStr};
+
+use utils::parse_lines;
 
 fn main() {
     let input = include_str!("./data.txt");
-    let rucksacks = input
-        .split("\n")
-        .filter(|s| !s.is_empty())
-        .map(|s| Rucksack { data: s.into() })
-        .collect::<Vec<_>>();
+    let rucksacks = parse_lines(input).unwrap();
 
     part1(&rucksacks);
     part2(&rucksacks);
@@ -55,6 +53,14 @@ impl Rucksack {
         assert_eq!(common.len(), 1);
 
         common.iter().next().unwrap().clone()
+    }
+}
+
+impl FromStr for Rucksack {
+    type Err = ();
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Ok(Rucksack { data: s.into() })
     }
 }
 
